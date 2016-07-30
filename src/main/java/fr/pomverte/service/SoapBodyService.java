@@ -1,8 +1,5 @@
 package fr.pomverte.service;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
@@ -23,10 +20,9 @@ public class SoapBodyService {
     }
 
     @ServiceActivator
-    public JAXBElement<FahrenheitToCelsius> jaxbSoapBody() {
+    public FahrenheitToCelsius jaxbSoapBody() {
         FahrenheitToCelsius fahrenheitToCelsius = this.objectFactory.createFahrenheitToCelsius();
         fahrenheitToCelsius.setFahrenheit("90.0");
-        return new JAXBElement<FahrenheitToCelsius>(new QName("http://www.w3schools.com/xml/", "FahrenheitToCelsius"),
-                FahrenheitToCelsius.class, fahrenheitToCelsius);
+        return fahrenheitToCelsius;
     }
 }

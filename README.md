@@ -1,6 +1,9 @@
 # Project exposing  and consuming SOAP services
 
-Consume from [http://www.w3schools.com/xml/tempconvert.asmx?WSDL](http://www.w3schools.com/xml/tempconvert.asmx?WSDL) by sending a GET request on [http://localhost:8080/string](http://localhost:8080/string)
+# Consume
+Consume from [http://www.w3schools.com/xml/tempconvert.asmx?WSDL](http://www.w3schools.com/xml/tempconvert.asmx?WSDL) by sending a GET request on
+- [http://localhost:8080/string](http://localhost:8080/string)
+- [http://localhost:8080/jaxb](http://localhost:8080/jaxb)
 
 
 ## References
