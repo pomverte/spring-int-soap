@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:beans="http://www.springframework.org/schema/beans"
-  xmlns:int-http="http://www.springframework.org/schema/integration/http" xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:int-http="http://www.springframework.org/schema/integration/http"
+  xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+  xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/integration
@@ -9,12 +11,29 @@
       http://www.springframework.org/schema/integration/ws
       http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
       http://www.springframework.org/schema/integration/http
-      http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+      http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+      http://www.springframework.org/schema/integration/xml
+      http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd">
 
   <int-http:inbound-gateway path="/string" supported-methods="GET" request-channel="inputStringChannel" reply-channel="celsiusStringChannel" />
 
   <service-activator input-channel="inputStringChannel" output-channel="fahrenheitStringChannel"
     ref="soapBodyService" method="stringSoapBody" />
+
+  <int-http:inbound-gateway path="/jaxb" supported-methods="GET" request-channel="inputJaxbChannel" reply-channel="celsiusStringChannel" />
+
+  <service-activator input-channel="inputJaxbChannel" output-channel="fahrenheitJaxbChannel"
+    ref="soapBodyService" method="jaxbSoapBody" />
+
+  <!-- JAXB => XML -->
+  <int-xml:marshalling-transformer marshaller="jaxb2Marshaller" input-channel="fahrenheitJaxbChannel"
+    output-channel="fahrenheitStringChannel" result-transformer="resultToStringTransformer" result-type="StringResult" />
+
+  <channel id="fahrenheitStringChannel">
+    <interceptors>
+      <wire-tap channel="logger" />
+    </interceptors>
+  </channel>
 
   <chain input-channel="fahrenheitStringChannel" output-channel="celsiusStringChannel">
     <int-ws:header-enricher>
