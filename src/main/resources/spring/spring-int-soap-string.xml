@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:int-http="http://www.springframework.org/schema/integration/http" xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/integration
+      http://www.springframework.org/schema/integration/spring-integration.xsd
+      http://www.springframework.org/schema/integration/ws
+      http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+      http://www.springframework.org/schema/integration/http
+      http://www.springframework.org/schema/integration/http/spring-integration-http.xsd">
+
+  <int-http:inbound-gateway path="/string" supported-methods="GET" request-channel="inputStringChannel" reply-channel="celsiusStringChannel" />
+
+  <service-activator input-channel="inputStringChannel" output-channel="fahrenheitStringChannel"
+    ref="soapBodyService" method="stringSoapBody" />
+
+  <chain input-channel="fahrenheitStringChannel" output-channel="celsiusStringChannel">
+    <int-ws:header-enricher>
+      <int-ws:soap-action value="http://www.w3schools.com/xml/FahrenheitToCelsius" />
+    </int-ws:header-enricher>
+    <int-ws:outbound-gateway uri="http://www.w3schools.com/xml/tempconvert.asmx" />
+  </chain>
+
+  <channel id="celsiusStringChannel">
+    <interceptors>
+      <wire-tap channel="logger" />
+    </interceptors>
+  </channel>
+
+  <logging-channel-adapter id="logger" logger-name="fr.pomverte.spring.integration.Logger" level="DEBUG" />
+
+</beans:beans>
