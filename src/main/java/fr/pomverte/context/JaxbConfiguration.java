@@ -6,13 +6,13 @@ import org.springframework.integration.xml.transformer.ResultToStringTransformer
 import org.springframework.integration.xml.transformer.ResultTransformer;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import fr.pomverte.soap.ObjectFactory;
+import fr.pomverte.jaxb.ObjectFactory;
 
 @Configuration
 public class JaxbConfiguration {
 
     @Bean
-    public ObjectFactory objectFactory() {
+    public ObjectFactory jaxbFactory() {
         return new ObjectFactory();
     }
 
@@ -24,7 +24,7 @@ public class JaxbConfiguration {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("fr.pomverte.soap");
+        marshaller.setContextPath("fr.pomverte.jaxb");
         return marshaller;
     }
 

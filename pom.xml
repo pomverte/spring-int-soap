@@ -78,7 +78,7 @@
           </execution>
         </executions>
         <configuration>
-          <packageName>fr.pomverte.soap</packageName>
+          <packageName>fr.pomverte.jaxb</packageName>
           <sourceType>wsdl</sourceType>
           <sources>
             <source>src/main/resources/tempconvert.wsdl</source>
