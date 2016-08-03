@@ -19,6 +19,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 public class WebServiceConfiguration {
 
+    /** Spring WS uses a different servlet type for handling SOAP messages: MessageDispatcherServlet */
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -29,17 +30,15 @@ public class WebServiceConfiguration {
 
     /**
      * http://localhost:8080/ws/countries.wsdl
-     * 
-     * @param countriesSchema
      * @return
      */
-    @Bean(name = "countries")
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+    @Bean
+    public DefaultWsdl11Definition countries() {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("CountriesPort");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-        wsdl11Definition.setSchema(countriesSchema);
+        wsdl11Definition.setSchema(this.countriesSchema());
         return wsdl11Definition;
     }
 
@@ -47,4 +46,5 @@ public class WebServiceConfiguration {
     public XsdSchema countriesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
     }
+
 }
