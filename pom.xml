@@ -44,6 +44,10 @@
       <artifactId>spring-integration-ws</artifactId>
     </dependency>
     <dependency>
+      <groupId>wsdl4j</groupId>
+      <artifactId>wsdl4j</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.integration</groupId>
       <artifactId>spring-integration-http</artifactId>
     </dependency>
@@ -71,20 +75,36 @@
         <version>2.2</version>
         <executions>
           <execution>
-            <id>xjc</id>
+            <id>temperature-xjc</id>
             <goals>
               <goal>xjc</goal>
             </goals>
+            <configuration>
+              <packageName>fr.pomverte.jaxb.temperature</packageName>
+              <sourceType>wsdl</sourceType>
+              <sources>
+                <source>src/main/resources/tempconvert.wsdl</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>countries-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>fr.pomverte.jaxb.countries</packageName>
+              <sourceType>XmlSchema</sourceType>
+              <sources>
+                <source>src/main/resources/countries.xsd</source>
+              </sources>
+            </configuration>
           </execution>
         </executions>
         <configuration>
-          <packageName>fr.pomverte.jaxb</packageName>
-          <sourceType>wsdl</sourceType>
-          <sources>
-            <source>src/main/resources/tempconvert.wsdl</source>
-          </sources>
           <addGeneratedAnnotation>true</addGeneratedAnnotation>
           <outputDirectory>target/generated-sources</outputDirectory>
+          <clearOutputDir>false</clearOutputDir>
         </configuration>
       </plugin>
     </plugins>

@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.stereotype.Component;
 
-import fr.pomverte.jaxb.FahrenheitToCelsius;
-import fr.pomverte.jaxb.ObjectFactory;
+import fr.pomverte.jaxb.temperature.FahrenheitToCelsius;
+import fr.pomverte.jaxb.temperature.ObjectFactory;
 
 @Component
 public class SoapBodyService {
 
     @Autowired
-    private ObjectFactory jaxbFactory;
+    private ObjectFactory temperatureFactory;
 
     @ServiceActivator
     public String stringSoapBody() {
@@ -21,7 +21,7 @@ public class SoapBodyService {
 
     @ServiceActivator
     public FahrenheitToCelsius jaxbSoapBody() {
-        FahrenheitToCelsius fahrenheitToCelsius = this.jaxbFactory.createFahrenheitToCelsius();
+        FahrenheitToCelsius fahrenheitToCelsius = this.temperatureFactory.createFahrenheitToCelsius();
         fahrenheitToCelsius.setFahrenheit("90.0");
         return fahrenheitToCelsius;
     }

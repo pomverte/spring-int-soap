@@ -6,13 +6,13 @@ import org.springframework.integration.xml.transformer.ResultToStringTransformer
 import org.springframework.integration.xml.transformer.ResultTransformer;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
-import fr.pomverte.jaxb.ObjectFactory;
+import fr.pomverte.jaxb.temperature.ObjectFactory;
 
 @Configuration
 public class JaxbConfiguration {
 
     @Bean
-    public ObjectFactory jaxbFactory() {
+    public ObjectFactory temperatureFactory() {
         return new ObjectFactory();
     }
 
@@ -24,7 +24,8 @@ public class JaxbConfiguration {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-        marshaller.setContextPath("fr.pomverte.jaxb");
+        marshaller.setContextPath("fr.pomverte.jaxb.temperature");
+//        marshaller.setContextPaths("fr.pomverte.jaxb.temperature", "fr.pomverte.jaxb.countries");
         return marshaller;
     }
 
