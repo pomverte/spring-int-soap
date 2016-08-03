@@ -21,6 +21,7 @@ import fr.pomverte.repository.CountryRepository;
  */
 @Endpoint
 public class CountryEndpoint {
+
     private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
 
     @Autowired
@@ -30,8 +31,7 @@ public class CountryEndpoint {
     @ResponsePayload
     public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
         GetCountryResponse response = new GetCountryResponse();
-        response.setCountry(countryRepository.findCountry(request.getName()));
-
+        response.setCountry(this.countryRepository.findCountry(request.getName()));
         return response;
     }
 }
