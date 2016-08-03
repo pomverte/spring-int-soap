@@ -18,7 +18,7 @@ import fr.pomverte.jaxb.countries.Currency;
  */
 @Repository
 public class CountryRepository {
-    private static final List<Country> countries = new ArrayList<Country>();
+    private static final List<Country> COUNTRIES = new ArrayList<>();
 
     @PostConstruct
     public void initData() {
@@ -28,7 +28,7 @@ public class CountryRepository {
         spain.setCurrency(Currency.EUR);
         spain.setPopulation(46704314);
 
-        countries.add(spain);
+        COUNTRIES.add(spain);
 
         Country poland = new Country();
         poland.setName("Poland");
@@ -36,7 +36,7 @@ public class CountryRepository {
         poland.setCurrency(Currency.PLN);
         poland.setPopulation(38186860);
 
-        countries.add(poland);
+        COUNTRIES.add(poland);
 
         Country uk = new Country();
         uk.setName("United Kingdom");
@@ -44,7 +44,7 @@ public class CountryRepository {
         uk.setCurrency(Currency.GBP);
         uk.setPopulation(63705000);
 
-        countries.add(uk);
+        COUNTRIES.add(uk);
     }
 
     public Country findCountry(String name) {
@@ -52,7 +52,7 @@ public class CountryRepository {
 
         Country result = null;
 
-        for (Country country : countries) {
+        for (Country country : COUNTRIES) {
             if (name.equals(country.getName())) {
                 result = country;
             }
