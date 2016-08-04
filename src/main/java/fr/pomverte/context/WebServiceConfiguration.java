@@ -1,11 +1,18 @@
 package fr.pomverte.context;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.integration.ws.SimpleWebServiceInboundGateway;
 import org.springframework.ws.config.annotation.EnableWs;
+import org.springframework.ws.server.endpoint.mapping.UriEndpointMapping;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
@@ -15,10 +22,25 @@ import org.springframework.xml.xsd.XsdSchema;
  * Create a new class with Spring WS related beans configuration.
  *
  */
+@ImportResource("classpath:spring/expose-soap.xml")
 @EnableWs
 @Configuration
 public class WebServiceConfiguration {
 // must it extends WsConfigurerAdapter ?
+
+    @Bean
+    public UriEndpointMapping uriEndpointMapping(SimpleWebServiceInboundGateway holidayGateWay) {
+        UriEndpointMapping uriEndpointMapping = new UriEndpointMapping();
+        //        uriEndpointMapping.setUsePath(true);
+//        Map<String, Object> endpointMap = new HashMap<>();
+//        endpointMap.put("/ws/holiday", holidayGateWay);
+//        endpointMap.put("{http://mycompany.com/hr/schemas}HolidayRequest", holidayGateWay);
+//        uriEndpointMapping.setEndpointMap(endpointMap);
+        Properties properties = new Properties();
+        properties.put("{http://mycompany.com/hr/schemas}HolidayRequest", holidayGateWay);
+        uriEndpointMapping.setMappings(properties);
+        return uriEndpointMapping;
+    }
 
     /** Spring WS uses a different servlet type for handling SOAP messages: MessageDispatcherServlet */
     @Bean

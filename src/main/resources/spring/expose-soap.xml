@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/integration
+      http://www.springframework.org/schema/integration/spring-integration.xsd
+      http://www.springframework.org/schema/integration/ws
+      http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd">
+
+  <int-ws:inbound-gateway id="holidayGateWay" request-channel="logger" />
+
+  <logging-channel-adapter id="logger" logger-name="fr.pomverte.spring.integration.Logger" level="DEBUG" />
+
+</beans:beans>
