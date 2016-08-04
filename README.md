@@ -8,6 +8,7 @@ Consume from [http://www.w3schools.com/xml/tempconvert.asmx?WSDL](http://www.w3s
 # Expose
 Guide [https://spring.io/guides/gs/producing-web-service/](https://spring.io/guides/gs/producing-web-service/)
 - [http://localhost:8080/ws/countries.wsdl](http://localhost:8080/ws/countries.wsdl)
+- [http://localhost:8080/ws/holiday.wsdl](http://localhost:8080/ws/holiday.wsdl)
 
 ## References
 - [ws-outbound-gateway](https://github.com/spring-projects/spring-integration-samples/blob/master/basic/ws-outbound-gateway)

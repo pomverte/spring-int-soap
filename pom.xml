@@ -100,6 +100,19 @@
               </sources>
             </configuration>
           </execution>
+          <execution>
+            <id>holiday-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>fr.pomverte.jaxb.holiday</packageName>
+              <sourceType>XmlSchema</sourceType>
+              <sources>
+                <source>src/main/resources/holiday.xsd</source>
+              </sources>
+            </configuration>
+          </execution>
         </executions>
         <configuration>
           <addGeneratedAnnotation>true</addGeneratedAnnotation>

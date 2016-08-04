@@ -18,6 +18,7 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 public class WebServiceConfiguration {
+// must it extends WsConfigurerAdapter ?
 
     /** Spring WS uses a different servlet type for handling SOAP messages: MessageDispatcherServlet */
     @Bean
@@ -45,6 +46,26 @@ public class WebServiceConfiguration {
     @Bean
     public XsdSchema countriesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("countries.xsd"));
+    }
+
+    /**
+     * http://localhost:8080/ws/holiday.wsdl
+     * 
+     * @return
+     */
+    @Bean
+    public DefaultWsdl11Definition holiday() {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("HolidayResource");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://mycompany.com/hr/definitions");
+        wsdl11Definition.setSchema(this.holidaySchema());
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema holidaySchema() {
+        return new SimpleXsdSchema(new ClassPathResource("holiday.xsd"));
     }
 
 }
